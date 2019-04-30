@@ -1,4 +1,5 @@
 {
+  "parser": "babel-eslint",
   "env": {
     "browser": true,
     "es6": true
@@ -27,7 +28,7 @@
       "error",
       "never"
     ],
-    "import/no-extraneous-dependencies": false,
+    "import/no-extraneous-dependencies": "off",
     "indent": [
       "error",
       4,
@@ -43,6 +44,7 @@
       "error",
       "never"
     ],
+    "react/destructuring-assignment": "off",
     "react/jsx-filename-extension": [
       "error",
       {

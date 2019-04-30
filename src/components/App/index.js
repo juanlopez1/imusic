@@ -1,15 +1,16 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {HashRouter, Route, Switch} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {requestFetchLocation} from '../actions/geolocation';
+import Home from '../Home';
+import {requestFetchLocation} from '../../actions/geolocation';
 
 import './App.css';
 
 class App extends PureComponent {
     static propTypes = {
-        requestFetchLocation: PropTypes.func.isRequired,
-        location: PropTypes.shape({})
+        requestFetchLocation: PropTypes.func.isRequired
     };
 
     componentDidMount() {
@@ -17,30 +18,31 @@ class App extends PureComponent {
             navigator.geolocation.getCurrentPosition(
                 position => this.props.requestFetchLocation(position.coords),
                 error => {
-                    //TODO: default country or selector
+                    console.error(`An error occurred while attempting to activate the geolocation.
+                    Error's details: ${error.message} (code ${error.code})`);
                 }
             );
         } else {
-            //TODO: default country or selector
+            // TODO: default country or selector
         }
     }
 
     render() {
-        const {location} = this.props;
         return (
-            <div className="App">
-                <header className="App-header">
-                    {location && `Welcome to iMusic, your country is ${location.country}`}
-                </header>
-            </div>
+            <HashRouter>
+                <Switch>
+                    <main>
+                        <Route path="/" component={Home}/>
+                    </main>
+                </Switch>
+            </HashRouter>
+
         );
     }
 }
 
 export default connect(
-    state => ({
-        location: state.geolocation.location
-    }),
+    null,
     dispatch => ({
         requestFetchLocation: position => dispatch(requestFetchLocation(position))
     })
