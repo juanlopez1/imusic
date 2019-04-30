@@ -2,13 +2,17 @@
 import {call, put} from 'redux-saga/effects';
 
 import {GeolocationService} from '../services';
-import {receiveLocation} from '../actions/geolocation';
+import {modalEnum} from '../constants';
+import {fetchLocationFailed, receiveLocation} from '../actions/geolocation';
+import {requestedShowModal} from '../actions/modal';
 
-export function* fetchLocation({coords: {latitude, longitude}}) {
+export function* fetchLocation({coordinates: {latitude, longitude}}) {
     try {
         const {country, countryCode} = yield call(GeolocationService.fetchLocation, latitude, longitude);
         yield put(receiveLocation({country, countryCode}));
     } catch (e) {
-        console.error(e);
+        console.error('An error occurred while fetching location.', e);
+        yield put(fetchLocationFailed());
+        yield put(requestedShowModal(modalEnum.GEOLOCATION));
     }
 }

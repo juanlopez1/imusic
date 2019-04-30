@@ -4,26 +4,24 @@ import {HashRouter, Route, Switch} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import Home from '../Home';
+import {modalEnum} from '../../constants';
 import {requestFetchLocation} from '../../actions/geolocation';
-
-import './App.css';
+import {requestedShowModal} from '../../actions/modal';
 
 class App extends PureComponent {
     static propTypes = {
-        requestFetchLocation: PropTypes.func.isRequired
+        requestFetchLocation: PropTypes.func.isRequired,
+        requestedShowModal: PropTypes.func.isRequired
     };
 
     componentDidMount() {
         if ('geolocation' in navigator) {
             navigator.geolocation.getCurrentPosition(
                 position => this.props.requestFetchLocation(position.coords),
-                error => {
-                    console.error(`An error occurred while attempting to activate the geolocation.
-                    Error's details: ${error.message} (code ${error.code})`);
-                }
+                () => this.props.requestedShowModal(modalEnum.GEOLOCATION)
             );
         } else {
-            // TODO: default country or selector
+            this.props.requestedShowModal(modalEnum.GEOLOCATION);
         }
     }
 
@@ -31,9 +29,7 @@ class App extends PureComponent {
         return (
             <HashRouter>
                 <Switch>
-                    <main>
-                        <Route path="/" component={Home}/>
-                    </main>
+                    <Route path="/" component={Home}/>
                 </Switch>
             </HashRouter>
 
@@ -44,6 +40,7 @@ class App extends PureComponent {
 export default connect(
     null,
     dispatch => ({
-        requestFetchLocation: position => dispatch(requestFetchLocation(position))
+        requestFetchLocation: position => dispatch(requestFetchLocation(position)),
+        requestedShowModal: type => dispatch(requestedShowModal(type))
     })
 )(App);

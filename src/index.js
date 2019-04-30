@@ -3,12 +3,10 @@ import ReactDOM from 'react-dom';
 
 import Root from './containers/Root';
 import configureStore from './store/configureStore';
-
-import './index.css';
+import './sass/index.scss';
 
 const store = configureStore();
 
 ReactDOM.render(
-    <Root store={store}/>,
-    document.getElementById('root')
+    <Root store={store}/>, document.getElementById('root')
 );
