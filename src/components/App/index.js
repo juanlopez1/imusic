@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import {HashRouter, Route, Switch} from 'react-router-dom';
 import {connect} from 'react-redux';
 
+import Footer from './Footer';
+import Header from './Header';
 import Home from '../Home';
 import {modalEnum} from '../../constants';
 import {requestFetchLocation} from '../../actions/geolocation';
@@ -28,9 +30,13 @@ class App extends PureComponent {
     render() {
         return (
             <HashRouter>
-                <Switch>
-                    <Route path="/" component={Home}/>
-                </Switch>
+                <Header/>
+                <main>
+                    <Switch>
+                        <Route path="/" component={Home}/>
+                    </Switch>
+                </main>
+                <Footer/>
             </HashRouter>
 
         );

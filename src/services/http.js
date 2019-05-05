@@ -5,7 +5,9 @@ class HttpService {
      * @returns {Promise<any>} A promise with the response body when the request is completed.
      */
     static async get(url) {
-        const response = await fetch(url);
+        const response = await fetch(url, {
+            method: 'GET'
+        });
         return response.json();
     }
 }

@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {
     Button, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader
 } from 'reactstrap';
+import {head} from 'lodash';
 
 import {availableCountries} from '../../constants';
 import {requestedHideModal} from '../../actions/modal';
@@ -20,8 +21,20 @@ class Geolocation extends PureComponent {
         show: false
     };
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            location: head(availableCountries)
+        };
+    }
+
     handleChange(value) {
         this.setState(() => ({location: availableCountries[value]}));
+    }
+
+    handleSubmit() {
+        this.props.requestSetLocation(this.state.location);
+        this.props.requestedHideModal();
     }
 
     render() {
@@ -29,11 +42,11 @@ class Geolocation extends PureComponent {
             <Modal isOpen={this.props.show}>
                 <ModalHeader>Geolocation</ModalHeader>
                 <ModalBody>
-                    <Label>Choose your country or region</Label>
+                    <Label for="country">Choose your country or region</Label>
                     <Input
-                        type="select"
-                        name="country"
                         id="country"
+                        name="country"
+                        type="select"
                         onChange={event => this.handleChange(event.target.value)}
                     >
                         {availableCountries.map((item, index) => (
@@ -44,12 +57,7 @@ class Geolocation extends PureComponent {
                     </Input>
                 </ModalBody>
                 <ModalFooter>
-                    <Button
-                        color="primary"
-                        onClick={
-                            () => this.props.requestedHideModal() && this.props.requestSetLocation(this.state.location)
-                        }
-                    >
+                    <Button color="primary" onClick={() => this.handleSubmit()}>
                         Submit
                     </Button>
                 </ModalFooter>
