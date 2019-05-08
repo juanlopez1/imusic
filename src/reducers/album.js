@@ -1,7 +1,9 @@
+import {ALBUMS_FETCH_SUCCEEDED} from '../actions/album';
+
 const album = (state = {}, action) => {
     switch (action.type) {
-        case 'foo':
-            return {...state, album: action.album};
+        case ALBUMS_FETCH_SUCCEEDED:
+            return {...state, searchResults: action.albums};
         default:
             return state;
     }

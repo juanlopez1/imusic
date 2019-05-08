@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 
-const Home = () => (
-    <div>
-        Work in proggres...
-    </div>
-);
+class Home extends PureComponent {
+    render() {
+        return (<div/>);
+    }
+}
 
 export default Home;

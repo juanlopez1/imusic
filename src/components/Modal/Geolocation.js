@@ -2,9 +2,9 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {
-    Button, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader
-} from 'reactstrap';
-import {head} from 'lodash';
+    Button, FormControl, FormLabel, Modal
+} from 'react-bootstrap';
+import {head, map} from 'lodash';
 
 import {availableCountries} from '../../constants';
 import {requestedHideModal} from '../../actions/modal';
@@ -38,29 +38,32 @@ class Geolocation extends PureComponent {
     }
 
     render() {
+        const {show} = this.props;
         return (
-            <Modal isOpen={this.props.show}>
-                <ModalHeader>Geolocation</ModalHeader>
-                <ModalBody>
-                    <Label for="country">Choose your country or region</Label>
-                    <Input
-                        id="country"
-                        name="country"
-                        type="select"
+            <Modal show={show}>
+                <Modal.Header>
+                    <Modal.Title>Store Location</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <FormLabel>Choose your country or region</FormLabel>
+                    <FormControl
+                        aria-label="country"
+                        aria-describedby="countrySelect"
+                        as="select"
                         onChange={event => this.handleChange(event.target.value)}
                     >
-                        {availableCountries.map((item, index) => (
+                        {map(availableCountries, (item, index) => (
                             <option key={item.countryCode} value={index}>
                                 {item.country}
                             </option>
                         ))}
-                    </Input>
-                </ModalBody>
-                <ModalFooter>
-                    <Button color="primary" onClick={() => this.handleSubmit()}>
+                    </FormControl>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={() => this.handleSubmit()}>
                         Submit
                     </Button>
-                </ModalFooter>
+                </Modal.Footer>
             </Modal>
         );
     }

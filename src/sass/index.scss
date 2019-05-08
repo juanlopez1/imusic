@@ -7,6 +7,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+main {
+  min-height: calc(100vh - 154px);
+}
+
 .navbar {
   background: #333 !important;
 
@@ -29,7 +33,6 @@ body {
 }
 
 footer {
-  position: fixed;
   font-size: 12px;
   color: #888888;
   left: 0;
@@ -42,5 +45,31 @@ footer {
     padding-top: 21px;
     margin-left: 157px;
     margin-right: 157px;
+  }
+}
+
+.panel {
+  background: #f1f2f2;
+  padding: 15px;
+}
+
+.spinner-container {
+  position: fixed;
+  top: 50%;
+  left: 50%
+}
+
+.album-card-image {
+  width: 100px;
+  height: 100px;
+}
+
+.cards {
+  margin: 10px;
+  width: 10rem;
+
+  img {
+    width: 160px;
+    height: 160px;
   }
 }

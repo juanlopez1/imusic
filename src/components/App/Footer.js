@@ -1,11 +1,9 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {Button, Col, Row} from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {
-    Button, Col, Row, Spinner
-} from 'reactstrap';
-import {faGlobe} from '@fortawesome/free-solid-svg-icons';
+import {faGlobe, faSpinner} from '@fortawesome/free-solid-svg-icons';
 
 import {modalEnum} from '../../constants';
 import {requestedShowModal} from '../../actions/modal';
@@ -19,8 +17,7 @@ const Footer = ({location, requestedShowModal: showModal}) => (
                 </Col>
                 <Col sm={2}>
                     <Button
-                        outline
-                        color="info"
+                        variant="info"
                         disabled={location === null}
                         onClick={() => showModal(modalEnum.GEOLOCATION)}
                     >
@@ -32,7 +29,7 @@ const Footer = ({location, requestedShowModal: showModal}) => (
                             </Fragment>
                         ) : (
                             <Fragment>
-                                <Spinner color="info"/>
+                                <FontAwesomeIcon icon={faSpinner} spin/>
                                 &nbsp;
                                 Locating
                             </Fragment>

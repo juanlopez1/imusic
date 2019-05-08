@@ -1,14 +1,15 @@
 import React from 'react';
-import {Navbar, NavbarBrand, Media} from 'reactstrap';
+import {Image, Navbar, NavbarBrand} from 'react-bootstrap';
 
 import logo from '../../images/logo-white.png';
 
 const Header = () => (
     <header>
-        <Navbar color="dark" light expand="md">
+        <Navbar color="dark" expand="md">
             <div className="nav-container">
                 <NavbarBrand>
-                    <Media object src={logo} alt="iMusic" className="nav-logo"/>
+                    <Image src={logo}/>
+                    &nbsp;
                     iMusic
                 </NavbarBrand>
             </div>
