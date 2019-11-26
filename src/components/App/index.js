@@ -14,11 +14,6 @@ import {requestFetchLocation} from '../../actions/geolocation';
 import {requestedShowModal} from '../../actions/modal';
 
 class App extends PureComponent {
-    static propTypes = {
-        requestFetchLocation: PropTypes.func.isRequired,
-        requestedShowModal: PropTypes.func.isRequired
-    };
-
     componentDidMount() {
         if (GEOLOCATION_NAME in navigator) {
             navigator.geolocation.getCurrentPosition(
@@ -49,10 +44,14 @@ class App extends PureComponent {
                 </main>
                 <Footer/>
             </HashRouter>
-
         );
     }
 }
+
+App.propTypes = {
+    requestFetchLocation: PropTypes.func.isRequired,
+    requestedShowModal: PropTypes.func.isRequired
+};
 
 export default connect(
     null,

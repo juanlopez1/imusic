@@ -1,22 +1,13 @@
 import {createStore, applyMiddleware, compose} from 'redux';
-import {persistState} from 'redux-devtools';
-import saga from 'redux-saga';
+import createSagaMiddleware from 'redux-saga';
 
-import DevTools from '../containers/DevTools';
+import {reactotronEnhancer, sagaMonitor} from './reactotronConfig';
 import reducers from '../reducers';
 import sagas from '../sagas';
 
-const sagaMiddleware = saga();
+const sagaMiddleware = createSagaMiddleware({sagaMonitor});
 
-const enhancer = compose(
-    applyMiddleware(sagaMiddleware),
-    DevTools.instrument(),
-    persistState(
-        window.location.href.match(
-            /[?&]debug_session=([^&#]+)\b/
-        )
-    )
-);
+const enhancer = compose(applyMiddleware(sagaMiddleware), reactotronEnhancer);
 
 const configureStore = initialState => {
     const store = createStore(reducers, initialState, enhancer);

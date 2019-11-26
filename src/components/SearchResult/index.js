@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {Container, Row} from 'react-bootstrap';
+import {Row} from 'react-bootstrap';
 import {map} from 'lodash';
 
 import {AlbumCard, LoadingSpinner} from '../common';
@@ -9,24 +9,6 @@ import {albumPropType, artistPropType} from '../../util';
 import {requestSearchContent} from '../../actions/panel';
 
 class SearchResult extends PureComponent {
-    static propTypes = {
-        requestSearchContent: PropTypes.func.isRequired,
-        match: PropTypes.shape({
-            params: PropTypes.shape({
-                search: PropTypes.string
-            })
-        }).isRequired,
-        artists: PropTypes.arrayOf(artistPropType),
-        albums: PropTypes.arrayOf(albumPropType),
-        searching: PropTypes.bool
-    };
-
-    static defaultProps = {
-        albums: [],
-        artists: [],
-        searching: false
-    };
-
     componentDidMount() {
         const {match: {params}, searching} = this.props;
         if (!searching && params.search) {
@@ -58,6 +40,24 @@ class SearchResult extends PureComponent {
         return this.props.searching ? <LoadingSpinner color="dark"/> : this.renderContent();
     }
 }
+
+SearchResult.propTypes = {
+    requestSearchContent: PropTypes.func.isRequired,
+    match: PropTypes.shape({
+        params: PropTypes.shape({
+            search: PropTypes.string
+        })
+    }).isRequired,
+    artists: PropTypes.arrayOf(artistPropType),
+    albums: PropTypes.arrayOf(albumPropType),
+    searching: PropTypes.bool
+};
+
+SearchResult.defaultProps = {
+    albums: [],
+    artists: [],
+    searching: false
+};
 
 export default connect(
     state => ({

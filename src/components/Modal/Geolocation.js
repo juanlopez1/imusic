@@ -11,16 +11,6 @@ import {requestedHideModal} from '../../actions/modal';
 import {requestSetLocation} from '../../actions/geolocation';
 
 class Geolocation extends PureComponent {
-    static propTypes = {
-        requestedHideModal: PropTypes.func.isRequired,
-        requestSetLocation: PropTypes.func.isRequired,
-        show: PropTypes.bool
-    };
-
-    static defaultProps = {
-        show: false
-    };
-
     constructor(props) {
         super(props);
         this.state = {
@@ -68,6 +58,16 @@ class Geolocation extends PureComponent {
         );
     }
 }
+
+Geolocation.propTypes = {
+    requestedHideModal: PropTypes.func.isRequired,
+    requestSetLocation: PropTypes.func.isRequired,
+    show: PropTypes.bool
+};
+
+Geolocation.defaultProps = {
+    show: false
+};
 
 export default connect(
     state => ({

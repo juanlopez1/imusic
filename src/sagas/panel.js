@@ -8,7 +8,6 @@ import {searchContentSucceeded} from '../actions/panel';
 export function* fetchContent({term}) {
     try {
         const countryCode = yield select(({geolocation}) => geolocation.location.countryCode);
-        console.log(countryCode);
         yield call(fetchArtists, term, countryCode);
         yield call(fetchAlbums, term, countryCode);
         yield put(searchContentSucceeded());

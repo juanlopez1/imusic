@@ -11,20 +11,6 @@ import {ENTER_KEY_CODE} from '../../constants';
 import {requestSearchContent} from '../../actions/panel';
 
 class Panel extends PureComponent {
-    static propTypes = {
-        history: PropTypes.shape({
-            push: PropTypes.func
-        }).isRequired,
-        requestSearchContent: PropTypes.func.isRequired,
-        term: PropTypes.string,
-        searching: PropTypes.bool
-    };
-
-    static defaultProps = {
-        term: '',
-        searching: false
-    };
-
     constructor(props) {
         super(props);
         this.state = {
@@ -84,6 +70,20 @@ class Panel extends PureComponent {
         );
     }
 }
+
+Panel.propTypes = {
+    history: PropTypes.shape({
+        push: PropTypes.func
+    }).isRequired,
+    requestSearchContent: PropTypes.func.isRequired,
+    term: PropTypes.string,
+    searching: PropTypes.bool
+};
+
+Panel.defaultProps = {
+    term: '',
+    searching: false
+};
 
 export default withRouter(
     connect(
