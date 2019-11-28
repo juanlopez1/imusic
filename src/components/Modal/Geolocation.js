@@ -73,8 +73,5 @@ export default connect(
     state => ({
         show: state.modal.show
     }),
-    dispatch => ({
-        requestedHideModal: () => dispatch(requestedHideModal()),
-        requestSetLocation: location => dispatch(requestSetLocation(location))
-    })
+    {requestedHideModal, requestSetLocation}
 )(Geolocation);

@@ -1,8 +1,8 @@
 import {takeLatest, all} from 'redux-saga/effects';
 
-import {CONTENT_SEARCH_REQUESTED} from '../actions/panel';
+import {CONTENT_SEARCH_REQUESTED} from '../actions/search';
 import {LOCATION_FETCH_REQUESTED} from '../actions/geolocation';
-import {fetchContent} from './panel';
+import {fetchContent} from './search';
 import {fetchLocation} from './geolocation';
 
 function* root() {

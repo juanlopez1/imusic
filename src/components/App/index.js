@@ -1,14 +1,11 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {HashRouter, Route, Switch} from 'react-router-dom';
-import {Col, Row} from 'react-bootstrap';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
-import Footer from './Footer';
-import Header from './Header';
-import Panel from './Panel';
+import Footer from '../Footer';
+import Header from '../Header';
 import Home from '../Home';
-import SearchResult from '../SearchResult';
 import {GEOLOCATION_NAME, modalEnum} from '../../constants';
 import {requestFetchLocation} from '../../actions/geolocation';
 import {requestedShowModal} from '../../actions/modal';
@@ -27,23 +24,17 @@ class App extends PureComponent {
 
     render() {
         return (
-            <HashRouter>
-                <Header/>
+            <BrowserRouter>
                 <main>
-                    <Row>
-                        <Col sm={3}>
-                            <Panel/>
-                        </Col>
-                        <Col sm={9}>
-                            <Switch>
-                                <Route path="/searchResult/:search" component={SearchResult}/>
-                                <Route component={Home}/>
-                            </Switch>
-                        </Col>
-                    </Row>
+                    <Header/>
+                    <div className="content-container">
+                        <Switch>
+                            <Route component={Home}/>
+                        </Switch>
+                    </div>
+                    <Footer/>
                 </main>
-                <Footer/>
-            </HashRouter>
+            </BrowserRouter>
         );
     }
 }
@@ -55,8 +46,5 @@ App.propTypes = {
 
 export default connect(
     null,
-    dispatch => ({
-        requestFetchLocation: position => dispatch(requestFetchLocation(position)),
-        requestedShowModal: type => dispatch(requestedShowModal(type))
-    })
+    {requestFetchLocation, requestedShowModal}
 )(App);

@@ -4,8 +4,8 @@ import album from './album';
 import artist from './artist';
 import geolocation from './geolocation';
 import modal from './modal';
-import panel from './panel';
+import search from './search';
 
 export default combineReducers({
-    artist, album, geolocation, modal, panel
+    artist, album, geolocation, modal, search
 });

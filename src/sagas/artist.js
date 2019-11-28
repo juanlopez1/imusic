@@ -8,6 +8,7 @@ export function* fetchArtists(term, countryCode) {
     try {
         const {results} = yield call(ArtistService.fetchArtists, term, countryCode);
         const artists = results;
+        console.log(artists);
         yield put(receiveArtists(artists));
     } catch (e) {
         console.error('An error occurred while fetching artist.', e);
