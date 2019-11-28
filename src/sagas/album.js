@@ -1,10 +1,22 @@
-/* eslint-disable import/prefer-default-export */
 import {call, put} from 'redux-saga/effects';
-import {chunk} from 'lodash';
+import {chunk, head} from 'lodash';
 
 import {AlbumService} from '../services';
 import {pickAlbumsData} from '../util';
-import {receiveAlbums} from '../actions/album';
+import {receiveAlbum, receiveAlbums} from '../actions/album';
+
+export function* fetchAlbumDetails({id}) {
+    try {
+        const {results} = yield call(AlbumService.fetchAlbumDetails, id);
+        const albumDetails = {
+            details: head(results),
+            tracks: results.slice(1, results.length)
+        };
+        yield put(receiveAlbum(albumDetails));
+    } catch (e) {
+        console.error('An error occurred while albums details.', e);
+    }
+}
 
 export function* fetchAlbums(term, countryCode) {
     try {

@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
 import {
     Button, FormControl, InputGroup
 } from 'react-bootstrap';
@@ -20,6 +21,7 @@ class Searcher extends PureComponent {
         const {lastSearch, searchParam} = this.props;
         if (keyCode === ENTER_KEY_CODE && !isEmpty(searchParam) && !isEqual(lastSearch, searchParam)) {
             this.props.requestSearchContent();
+            this.props.history.push('/');
         }
     }
 
@@ -56,6 +58,9 @@ class Searcher extends PureComponent {
 Searcher.propTypes = {
     requestSearchContent: PropTypes.func.isRequired,
     handleChangeSearchParam: PropTypes.func.isRequired,
+    history: PropTypes.shape({
+        push: PropTypes.func
+    }).isRequired,
     lastSearch: PropTypes.string,
     searchParam: PropTypes.string,
     searching: PropTypes.bool
@@ -67,11 +72,13 @@ Searcher.defaultProps = {
     searchParam: ''
 };
 
-export default connect(
-    state => ({
-        lastSearch: state.search.lastSearch,
-        searching: state.search.searching,
-        searchParam: state.search.searchParam
-    }),
-    {handleChangeSearchParam, requestSearchContent}
-)(Searcher);
+export default withRouter(
+    connect(
+        state => ({
+            lastSearch: state.search.lastSearch,
+            searching: state.search.searching,
+            searchParam: state.search.searchParam
+        }),
+        {handleChangeSearchParam, requestSearchContent}
+    )(Searcher)
+);

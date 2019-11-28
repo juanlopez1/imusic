@@ -29,6 +29,10 @@ header {
   }
 }
 
+.center-vertical {
+  align-items: center;
+}
+
 .content-container {
   padding: 70px 190px 0px;
   min-height: calc(100vh - 80px);
@@ -75,4 +79,25 @@ footer {
 .pagination-row {
   margin: 10px;
   justify-content: center;
+}
+
+.album-details {
+  img {
+    width: 95%;
+  }
+}
+
+.track-container {
+  margin-top: 30px;
+  margin-bottom: 30px;
+
+  .track-header{
+    margin: 5px;
+    padding: 10px;
+  }
+  .track {
+    background-color: #e8e8e8;
+    margin: 5px;
+    padding: 10px;
+  }
 }

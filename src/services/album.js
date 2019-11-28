@@ -3,6 +3,10 @@ import HttpService from './http';
 const {REACT_APP_ITUNES_ENDPOINT} = process.env;
 
 class AlbumService {
+    static fetchAlbumDetails(id) {
+        return HttpService.get(`${REACT_APP_ITUNES_ENDPOINT}lookup?id=${id}&entity=song`);
+    }
+
     static fetchAlbums(term, country) {
         const query = new URLSearchParams();
         query.set('country', country);
