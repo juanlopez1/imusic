@@ -34,6 +34,20 @@ header {
   min-height: calc(100vh - 80px);
 }
 
+.nav-link {
+  color: black;
+}
+
+.nav-link.active {
+  color: #ffffff;
+  background-color: #9f9f9f !important;
+}
+
+.nav-link:hover {
+  color: #000000;
+  background-color: #e7e7e7 !important;
+}
+
 footer {
   font-size: 12px;
   color: #888888;
@@ -53,17 +67,10 @@ footer {
   left: 50%
 }
 
+.cards-row {
+  justify-content: space-between;
+}
 .cards {
-  margin: 10px;
-  width: 10rem;
-
-  .album-card-image {
-    width: 100px;
-    height: 100px;
-  }
-
-  img {
-    width: 160px;
-    height: 160px;
-  }
+  margin: 5px;
+  width: 12rem;
 }

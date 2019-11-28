@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 
 const artistPropType = PropTypes.shape({
     artistId: PropTypes.number,
-    artworkUrl100: PropTypes.string,
+    artistLinkUrl: PropTypes.string,
     artistName: PropTypes.string,
-    collectionName: PropTypes.string
+    primaryGenreName: PropTypes.string
 });
 
 export default artistPropType;

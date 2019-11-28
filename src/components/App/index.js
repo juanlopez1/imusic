@@ -5,7 +5,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import Footer from '../Footer';
 import Header from '../Header';
-import Home from '../Home';
+import Home from '../SearchResult';
 import {GEOLOCATION_NAME, modalEnum} from '../../constants';
 import {requestFetchLocation} from '../../actions/geolocation';
 import {requestedShowModal} from '../../actions/modal';
@@ -29,6 +29,8 @@ class App extends PureComponent {
                     <Header/>
                     <div className="content-container">
                         <Switch>
+                            <Route path="/album/:id" component={Home}/>
+                            <Route path="/artist/:id" component={Home}/>
                             <Route component={Home}/>
                         </Switch>
                     </div>

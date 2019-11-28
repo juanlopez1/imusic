@@ -2,14 +2,9 @@ import {map, pick} from 'lodash';
 
 const pickArtistsData = results => map(results, album => pick(album, [
     'artistId',
+    'artistLinkUrl',
     'artistName',
-    'artworkUrl100',
-    'collectionId',
-    'collectionName',
-    'collectionViewUrl',
-    'primaryGenreName',
-    'releaseDate',
-    'trackCount'
+    'primaryGenreName'
 ]));
 
 export default pickArtistsData;

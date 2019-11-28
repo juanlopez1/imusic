@@ -5,7 +5,7 @@ import {albumPropType} from '../../util';
 
 const AlbumCard = ({album}) => (
     <Card className="cards">
-        <Card.Img variant="top" src={album.artworkUrl100} className="album-card-image"/>
+        <Card.Img variant="top" src={album.artworkUrl100}/>
         <Card.Body>
             <Card.Title>{album.collectionName}</Card.Title>
             <Card.Subtitle>{album.artistName}</Card.Subtitle>
