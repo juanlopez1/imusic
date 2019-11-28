@@ -1,11 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Col, Image, Row} from 'react-bootstrap';
 
-const getReleaseYear = dateString => {
-    const date = new Date(dateString);
-    return date.getFullYear();
-};
+import {albumPropType, getReleaseYear} from '../../util';
 
 const Details = ({details}) => (
     <Row className="center-vertical album-details">
@@ -34,15 +30,7 @@ const Details = ({details}) => (
 );
 
 Details.propTypes = {
-    details: PropTypes.shape({
-        artistName: PropTypes.string,
-        artistViewUrl: PropTypes.string,
-        artworkUrl100: PropTypes.string,
-        collectionName: PropTypes.string,
-        collectionViewUrl: PropTypes.string,
-        primaryGenreName: PropTypes.string,
-        releaseDate: PropTypes.string
-    }).isRequired
+    details: albumPropType.isRequired
 };
 
 export default Details;

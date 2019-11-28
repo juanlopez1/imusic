@@ -1,3 +1,14 @@
+export const ARTIST_FETCH_REQUESTED = 'ARTIST_FETCH_REQUESTED';
+export const ARTIST_FETCH_SUCCEEDED = 'ARTIST_FETCH_SUCCEEDED';
+
+export const requestArtist = id => ({
+    type: ARTIST_FETCH_REQUESTED, id
+});
+
+export const receiveArtist = artist => ({
+    type: ARTIST_FETCH_SUCCEEDED, artist
+});
+
 export const ARTISTS_FETCH_SUCCEEDED = 'ARTISTS_FETCH_SUCCEEDED';
 
 export const receiveArtists = (artists, pages) => ({

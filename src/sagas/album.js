@@ -5,9 +5,9 @@ import {AlbumService} from '../services';
 import {pickAlbumsData} from '../util';
 import {receiveAlbum, receiveAlbums} from '../actions/album';
 
-export function* fetchAlbumDetails({id}) {
+export function* fetchAlbum({id}) {
     try {
-        const {results} = yield call(AlbumService.fetchAlbumDetails, id);
+        const {results} = yield call(AlbumService.fetchAlbum, id);
         const albumDetails = {
             details: head(results),
             tracks: results.slice(1, results.length)

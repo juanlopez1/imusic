@@ -7,6 +7,7 @@ import {getTrackDuration} from '../../util';
 
 const TrackList = ({tracks}) => (
     <div className="track-container">
+        <h2>Tracks</h2>
         <Row className="track-header">
             <Col sm={1} className="text-center">
                 #

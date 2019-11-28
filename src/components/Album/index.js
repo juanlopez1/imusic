@@ -6,6 +6,7 @@ import Details from './Details';
 import TrackList from './TrackList';
 import {LoadingSpinner} from '../common';
 import {requestAlbum} from '../../actions/album';
+import {albumPropType, trackPropType} from '../../util';
 
 class Album extends PureComponent {
     componentDidMount() {
@@ -38,19 +39,8 @@ Album.propTypes = {
         })
     }).isRequired,
     album: PropTypes.shape({
-        details: PropTypes.shape({
-            artistName: PropTypes.string,
-            artistViewUrl: PropTypes.string,
-            artworkUrl100: PropTypes.string,
-            collectionName: PropTypes.string,
-            collectionViewUrl: PropTypes.string
-        }),
-        tracks: PropTypes.arrayOf(PropTypes.shape({
-            trackId: PropTypes.number,
-            trackName: PropTypes.string,
-            trackNumber: PropTypes.number,
-            trackTimeMillis: PropTypes.number
-        }))
+        details: albumPropType,
+        tracks: PropTypes.arrayOf(trackPropType)
     })
 };
 

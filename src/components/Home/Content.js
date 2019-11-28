@@ -7,7 +7,7 @@ import {
 } from 'react-bootstrap';
 import {isNull, map, times} from 'lodash';
 
-import {AlbumCard, ArtistCard, LoadingSpinner} from '../common';
+import {AlbumGrid, ArtistCard, LoadingSpinner} from '../common';
 import {albumPropType, artistPropType} from '../../util';
 import {handleChangeAlbumsPage} from '../../actions/album';
 import {handleChangeArtistPage} from '../../actions/artist';
@@ -66,18 +66,7 @@ class Content extends PureComponent {
                     </Row>
                 </Tab.Pane>
                 <Tab.Pane eventKey="albums">
-                    {map(albumsInView, (chunk, index) => (
-                        <Row key={index}>
-                            {map(chunk, album => (
-                                <Col key={album.collectionId} sm={2}>
-                                    <AlbumCard
-                                        album={album}
-                                        onClick={() => this.handleClickAlbumCard(album.collectionId)}
-                                    />
-                                </Col>
-                            ))}
-                        </Row>
-                    ))}
+                    <AlbumGrid albums={albumsInView} onClick={id => this.handleClickAlbumCard(id)}/>
                     <Row className="pagination-row">
                         <Pagination>
                             {times(albumPages, iterator => {

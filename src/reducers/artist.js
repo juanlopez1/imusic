@@ -1,9 +1,15 @@
 import {chunk} from 'lodash';
 
-import {ARTISTS_FETCH_SUCCEEDED, ARTIST_PAGE_HANDLE_CHANGE} from '../actions/artist';
+import {
+    ARTIST_FETCH_REQUESTED, ARTIST_FETCH_SUCCEEDED, ARTISTS_FETCH_SUCCEEDED, ARTIST_PAGE_HANDLE_CHANGE
+} from '../actions/artist';
 
 const artist = (state = {}, action) => {
     switch (action.type) {
+        case ARTIST_FETCH_REQUESTED:
+            return {...state, artist: null};
+        case ARTIST_FETCH_SUCCEEDED:
+            return {...state, artist: action.artist};
         case ARTISTS_FETCH_SUCCEEDED:
             return {...state, artists: action.artists, pages: action.pages};
         case ARTIST_PAGE_HANDLE_CHANGE:
