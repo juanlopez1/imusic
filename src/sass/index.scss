@@ -67,10 +67,12 @@ footer {
   left: 50%
 }
 
-.cards-row {
-  justify-content: space-between;
-}
 .cards {
   margin: 5px;
   width: 12rem;
+}
+
+.pagination-row {
+  margin: 10px;
+  justify-content: center;
 }
