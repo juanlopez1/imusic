@@ -7,7 +7,7 @@ import {
 
 import Content from './Content';
 
-const SearchResult = ({searching}) => (
+const Home = ({searching}) => (
     <Tab.Container id="column-pills" defaultActiveKey="artists">
         <Row>
             <Col sm={2}>
@@ -31,11 +31,11 @@ const SearchResult = ({searching}) => (
     </Tab.Container>
 );
 
-SearchResult.propTypes = {
+Home.propTypes = {
     searching: PropTypes.bool
 };
 
-SearchResult.defaultProps = {
+Home.defaultProps = {
     searching: false
 };
 
@@ -43,4 +43,4 @@ export default connect(
     state => ({
         searching: state.search.searching
     })
-)(SearchResult);
+)(Home);

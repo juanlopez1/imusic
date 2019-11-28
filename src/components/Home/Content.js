@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
 import {
     Col, Pagination, Row, Tab
 } from 'react-bootstrap';
@@ -12,12 +13,12 @@ import {handleChangeAlbumsPage} from '../../actions/album';
 import {handleChangeArtistPage} from '../../actions/artist';
 
 class Content extends PureComponent {
-    handleClickAlbumPage(page) {
-        this.props.handleChangeAlbumsPage(page);
+    handleClickAlbumCard(id) {
+        this.props.history.push(`/album/${id}`);
     }
 
-    handleClickArtistPage(page) {
-        this.props.handleChangeArtistPage(page);
+    handleClickArtistCard(id) {
+        this.props.history.push(`/artist/${id}`);
     }
 
     render() {
@@ -39,7 +40,10 @@ class Content extends PureComponent {
                         <Row key={index}>
                             {map(chunk, artist => (
                                 <Col key={artist.artistId} sm={2}>
-                                    <ArtistCard artist={artist}/>
+                                    <ArtistCard
+                                        artist={artist}
+                                        onClick={() => this.handleClickArtistCard(artist.artistId)}
+                                    />
                                 </Col>
                             ))}
                         </Row>
@@ -52,7 +56,7 @@ class Content extends PureComponent {
                                     <Pagination.Item
                                         key={page}
                                         active={page === artistSelectedPage}
-                                        onClick={() => this.handleClickArtistPage(page)}
+                                        onClick={() => this.props.handleChangeArtistPage(page)}
                                     >
                                         {page}
                                     </Pagination.Item>
@@ -66,7 +70,10 @@ class Content extends PureComponent {
                         <Row key={index}>
                             {map(chunk, album => (
                                 <Col key={album.collectionId} sm={2}>
-                                    <AlbumCard album={album}/>
+                                    <AlbumCard
+                                        album={album}
+                                        onClick={() => this.handleClickAlbumCard(album.collectionId)}
+                                    />
                                 </Col>
                             ))}
                         </Row>
@@ -79,7 +86,7 @@ class Content extends PureComponent {
                                     <Pagination.Item
                                         key={page}
                                         active={page === albumSelectedPage}
-                                        onClick={() => this.handleClickAlbumPage(page)}
+                                        onClick={() => this.props.handleChangeAlbumsPage(page)}
                                     >
                                         {page}
                                     </Pagination.Item>
@@ -94,6 +101,9 @@ class Content extends PureComponent {
 }
 
 Content.propTypes = {
+    history: PropTypes.shape({
+        push: PropTypes.func
+    }).isRequired,
     handleChangeAlbumsPage: PropTypes.func.isRequired,
     handleChangeArtistPage: PropTypes.func.isRequired,
     albumsInView: PropTypes.arrayOf(
@@ -121,16 +131,18 @@ Content.defaultProps = {
     searching: false
 };
 
-export default connect(
-    state => ({
-        albumsInView: state.album.albumsInView,
-        albumSelectedPage: state.album.selectedPage,
-        albumPages: state.album.pages,
-        artistsInView: state.artist.artistsInView,
-        artistSelectedPage: state.artist.selectedPage,
-        artistPages: state.artist.pages,
-        lastSearch: state.search.lastSearch,
-        searching: state.search.searching
-    }),
-    {handleChangeAlbumsPage, handleChangeArtistPage}
-)(Content);
+export default withRouter(
+    connect(
+        state => ({
+            albumsInView: state.album.albumsInView,
+            albumSelectedPage: state.album.selectedPage,
+            albumPages: state.album.pages,
+            artistsInView: state.artist.artistsInView,
+            artistSelectedPage: state.artist.selectedPage,
+            artistPages: state.artist.pages,
+            lastSearch: state.search.lastSearch,
+            searching: state.search.searching
+        }),
+        {handleChangeAlbumsPage, handleChangeArtistPage}
+    )(Content)
+);

@@ -1,11 +1,14 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {BrowserRouter} from 'react-router-dom';
+import {Switch, Route} from 'react-router';
 import {connect} from 'react-redux';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
+import Album from '../Album';
+import Artist from '../Artist';
+import Home from '../Home';
 import Footer from '../Footer';
 import Header from '../Header';
-import Home from '../SearchResult';
 import {GEOLOCATION_NAME, modalEnum} from '../../constants';
 import {requestFetchLocation} from '../../actions/geolocation';
 import {requestedShowModal} from '../../actions/modal';
@@ -29,8 +32,8 @@ class App extends PureComponent {
                     <Header/>
                     <div className="content-container">
                         <Switch>
-                            <Route path="/album/:id" component={Home}/>
-                            <Route path="/artist/:id" component={Home}/>
+                            <Route path="/album/:id" component={Album}/>
+                            <Route path="/artist/:id" component={Artist}/>
                             <Route component={Home}/>
                         </Switch>
                     </div>
