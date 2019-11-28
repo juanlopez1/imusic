@@ -1,13 +1,19 @@
 import {chunk} from 'lodash';
 
 import {
-    ALBUM_FETCH_REQUESTED, ALBUM_FETCH_SUCCEEDED, ALBUMS_FETCH_SUCCEEDED, ALBUMS_PAGE_HANDLE_CHANGE
+    ALBUM_FETCH_FAILED,
+    ALBUM_FETCH_REQUESTED,
+    ALBUM_FETCH_SUCCEEDED,
+    ALBUMS_FETCH_SUCCEEDED,
+    ALBUMS_PAGE_HANDLE_CHANGE
 } from '../actions/album';
 
 const album = (state = {}, action) => {
     switch (action.type) {
+        case ALBUM_FETCH_FAILED:
+            return {...state, errorMessage: action.errorMessage};
         case ALBUM_FETCH_REQUESTED:
-            return {...state, album: null};
+            return {...state, album: null, errorMessage: null};
         case ALBUM_FETCH_SUCCEEDED:
             return {...state, album: action.album};
         case ALBUMS_FETCH_SUCCEEDED:

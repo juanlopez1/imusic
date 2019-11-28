@@ -3,11 +3,16 @@ import {chunk, head} from 'lodash';
 
 import {AlbumService} from '../services';
 import {pickAlbumsData} from '../util';
-import {receiveAlbum, receiveAlbums} from '../actions/album';
+import {notifyFetchAlbumFailed, receiveAlbum, receiveAlbums} from '../actions/album';
 
 export function* fetchAlbum({id}) {
     try {
         const {results} = yield call(AlbumService.fetchAlbum, id);
+
+        if (!results || results.length === 0) {
+            yield put(notifyFetchAlbumFailed('This content is unavailable'));
+        }
+
         const albumDetails = {
             details: head(results),
             tracks: results.slice(1, results.length)
@@ -15,6 +20,7 @@ export function* fetchAlbum({id}) {
         yield put(receiveAlbum(albumDetails));
     } catch (e) {
         console.error('An error occurred while albums details.', e);
+        yield put(notifyFetchAlbumFailed('This content is unavailable'));
     }
 }
 

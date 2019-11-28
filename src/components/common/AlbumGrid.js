@@ -18,7 +18,9 @@ const AlbumGrid = ({albums, onClick}) => map(albums, (chunk, index) => (
 
 AlbumGrid.propTypes = {
     onClick: PropTypes.func.isRequired,
-    albums: PropTypes.arrayOf(albumPropType).isRequired
+    albums: PropTypes.arrayOf(
+        PropTypes.arrayOf(albumPropType)
+    ).isRequired
 };
 
 export default AlbumGrid;

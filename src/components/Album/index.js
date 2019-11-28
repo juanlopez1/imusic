@@ -24,7 +24,14 @@ class Album extends PureComponent {
     }
 
     render() {
-        return this.props.album ? this.renderContent() : <LoadingSpinner color="dark"/>;
+        const {album, errorMessage} = this.props;
+        if (errorMessage) {
+            return <h1>{errorMessage}</h1>;
+        }
+        if (album) {
+            return this.renderContent();
+        }
+        return <LoadingSpinner color="dark"/>;
     }
 }
 
@@ -41,16 +48,19 @@ Album.propTypes = {
     album: PropTypes.shape({
         details: albumPropType,
         tracks: PropTypes.arrayOf(trackPropType)
-    })
+    }),
+    errorMessage: PropTypes.string
 };
 
 Album.defaultProps = {
-    album: null
+    album: null,
+    errorMessage: null
 };
 
 export default connect(
     state => ({
-        album: state.album.album
+        album: state.album.album,
+        errorMessage: state.album.errorMessage
     }),
     {requestAlbum}
 )(Album);

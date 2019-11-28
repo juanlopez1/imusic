@@ -3,11 +3,16 @@ import {chunk, head} from 'lodash';
 
 import {ArtistService} from '../services';
 import {pickArtistsData} from '../util';
-import {receiveArtist, receiveArtists} from '../actions/artist';
+import {notifyFetchArtistFailed, receiveArtist, receiveArtists} from '../actions/artist';
 
 export function* fetchArtist({id}) {
     try {
         const {results} = yield call(ArtistService.fetchArtist, id);
+
+        if (!results || results.length === 0) {
+            yield put(notifyFetchArtistFailed('This content is unavailable'));
+        }
+
         const artistDetails = {
             details: head(results),
             albums: chunk(results.slice(1, results.length), 6)
@@ -15,6 +20,7 @@ export function* fetchArtist({id}) {
         yield put(receiveArtist(artistDetails));
     } catch (e) {
         console.error('An error occurred while artist details.', e);
+        yield put(notifyFetchArtistFailed('This content is unavailable'));
     }
 }
 

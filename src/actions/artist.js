@@ -1,5 +1,6 @@
 export const ARTIST_FETCH_REQUESTED = 'ARTIST_FETCH_REQUESTED';
 export const ARTIST_FETCH_SUCCEEDED = 'ARTIST_FETCH_SUCCEEDED';
+export const ARTIST_FETCH_FAILED = 'ARTIST_FETCH_FAILED';
 
 export const requestArtist = id => ({
     type: ARTIST_FETCH_REQUESTED, id
@@ -7,6 +8,10 @@ export const requestArtist = id => ({
 
 export const receiveArtist = artist => ({
     type: ARTIST_FETCH_SUCCEEDED, artist
+});
+
+export const notifyFetchArtistFailed = errorMessage => ({
+    type: ARTIST_FETCH_FAILED, errorMessage
 });
 
 export const ARTISTS_FETCH_SUCCEEDED = 'ARTISTS_FETCH_SUCCEEDED';

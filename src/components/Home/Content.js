@@ -2,12 +2,12 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import {
-    Col, Pagination, Row, Tab
-} from 'react-bootstrap';
-import {isNull, map, times} from 'lodash';
+import {Tab} from 'react-bootstrap';
+import {isNull} from 'lodash';
 
-import {AlbumGrid, ArtistCard, LoadingSpinner} from '../common';
+import {
+    AlbumGrid, ArtistGrid, LoadingSpinner, Paginator
+} from '../common';
 import {albumPropType, artistPropType} from '../../util';
 import {handleChangeAlbumsPage} from '../../actions/album';
 import {handleChangeArtistPage} from '../../actions/artist';
@@ -36,53 +36,20 @@ class Content extends PureComponent {
         return (
             <Tab.Content>
                 <Tab.Pane eventKey="artists">
-                    {map(artistsInView, (chunk, index) => (
-                        <Row key={index}>
-                            {map(chunk, artist => (
-                                <Col key={artist.artistId} sm={2}>
-                                    <ArtistCard
-                                        artist={artist}
-                                        onClick={() => this.handleClickArtistCard(artist.artistId)}
-                                    />
-                                </Col>
-                            ))}
-                        </Row>
-                    ))}
-                    <Row className="pagination-row">
-                        <Pagination>
-                            {times(artistPages, iterator => {
-                                const page = iterator + 1;
-                                return (
-                                    <Pagination.Item
-                                        key={page}
-                                        active={page === artistSelectedPage}
-                                        onClick={() => this.props.handleChangeArtistPage(page)}
-                                    >
-                                        {page}
-                                    </Pagination.Item>
-                                );
-                            })}
-                        </Pagination>
-                    </Row>
+                    <ArtistGrid artists={artistsInView} onClick={id => this.handleClickArtistCard(id)}/>
+                    <Paginator
+                        onClick={page => this.props.handleChangeArtistPage(page)}
+                        selectedPage={artistSelectedPage}
+                        pages={artistPages}
+                    />
                 </Tab.Pane>
                 <Tab.Pane eventKey="albums">
                     <AlbumGrid albums={albumsInView} onClick={id => this.handleClickAlbumCard(id)}/>
-                    <Row className="pagination-row">
-                        <Pagination>
-                            {times(albumPages, iterator => {
-                                const page = iterator + 1;
-                                return (
-                                    <Pagination.Item
-                                        key={page}
-                                        active={page === albumSelectedPage}
-                                        onClick={() => this.props.handleChangeAlbumsPage(page)}
-                                    >
-                                        {page}
-                                    </Pagination.Item>
-                                );
-                            })}
-                        </Pagination>
-                    </Row>
+                    <Paginator
+                        onClick={page => this.props.handleChangeAlbumsPage(page)}
+                        selectedPage={albumSelectedPage}
+                        pages={albumPages}
+                    />
                 </Tab.Pane>
             </Tab.Content>
         );

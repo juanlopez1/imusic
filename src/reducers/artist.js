@@ -1,13 +1,19 @@
 import {chunk} from 'lodash';
 
 import {
-    ARTIST_FETCH_REQUESTED, ARTIST_FETCH_SUCCEEDED, ARTISTS_FETCH_SUCCEEDED, ARTIST_PAGE_HANDLE_CHANGE
+    ARTIST_FETCH_FAILED,
+    ARTIST_FETCH_REQUESTED,
+    ARTIST_FETCH_SUCCEEDED,
+    ARTISTS_FETCH_SUCCEEDED,
+    ARTIST_PAGE_HANDLE_CHANGE
 } from '../actions/artist';
 
 const artist = (state = {}, action) => {
     switch (action.type) {
+        case ARTIST_FETCH_FAILED:
+            return {...state, errorMessage: action.errorMessage};
         case ARTIST_FETCH_REQUESTED:
-            return {...state, artist: null};
+            return {...state, artist: null, errorMessage: null};
         case ARTIST_FETCH_SUCCEEDED:
             return {...state, artist: action.artist};
         case ARTISTS_FETCH_SUCCEEDED:

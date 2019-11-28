@@ -31,7 +31,15 @@ class Artist extends PureComponent {
     }
 
     render() {
-        return this.props.artist ? this.renderContent() : <LoadingSpinner color="dark"/>;
+        const {artist, errorMessage} = this.props;
+
+        if (errorMessage) {
+            return <h1>{errorMessage}</h1>;
+        }
+        if (artist) {
+            return this.renderContent();
+        }
+        return <LoadingSpinner color="dark"/>;
     }
 }
 
@@ -47,17 +55,22 @@ Artist.propTypes = {
     }).isRequired,
     artist: PropTypes.shape({
         details: artistPropType,
-        albums: PropTypes.arrayOf(albumPropType)
-    })
+        albums: PropTypes.arrayOf(
+            PropTypes.arrayOf(albumPropType)
+        )
+    }),
+    errorMessage: PropTypes.string
 };
 
 Artist.defaultProps = {
-    artist: null
+    artist: null,
+    errorMessage: null
 };
 
 export default connect(
     state => ({
-        artist: state.artist.artist
+        artist: state.artist.artist,
+        errorMessage: state.artist.errorMessage
     }),
     {requestArtist}
 )(Artist);
